@@ -9,15 +9,10 @@ Window {
     property alias repeater: repeater
     title: qsTr("Hello World")
 
-    FontLoader {
-           id: webfont
-           name: "Clear"
-           source: "ClearSans-Medium.ttf"
-       }
 
     property int taille: 4
     property var tuiles: [0,2,4,8,0,16,0,128,256,0,1024,2048,2,0,8,0]
-    property var couleurs: ["#cbbeb1" ,	"#B339E8" ,	"#A0F773", 	"#F5ED71" ,	"#532DFE" ,	"#604276", 	"#82ACC8", 	"#5694E0", 	"#8E66BE", 	"#801BE1", 	"#941E79", 	"#5FBFC8"]
+    property var couleurs: ["#cbbeb1","#eee4da","#ede0c8","#f2b179","#f59563","#f67c5f","#f65e3b", "#edcf72","#edcc61","#edc850","#edc53f","#edc22e","#2980b9","#2980b9","#2980b9","#2980b9"]
 
     function log2(a){
         return Math.max((Math.log(a)/Math.log(2)),0)
@@ -29,8 +24,8 @@ Window {
         x: 260
         y: 39
         text: qsTr("2048")
-        font.weight: Font.DemiBold
-        font.family: "clear"
+        font.weight: Font.Black
+        font.family: "Arial"
         verticalAlignment: Text.AlignTop
         topPadding: -2
         horizontalAlignment: Text.AlignHCenter
@@ -99,8 +94,10 @@ Window {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 anchors.verticalCenter: parent.verticalCenter
                                 text:tuiles[index]
-                                font.pixelSize:50
+                                font.weight: Font.Black
+                                font.pixelSize:42
                                 opacity: (tuiles[index]!=0)
+                                font.family: "Arial"
                             }
                         }
                     }
