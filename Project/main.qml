@@ -8,8 +8,21 @@ Window {
     height: 800
     property alias repeater: repeater
     title: qsTr("Hello World")
-    property int taille: 6
-    property int tuile: 5
+
+    FontLoader {
+           id: webfont
+           name: "Clear"
+           source: "ClearSans-Medium.ttf"
+       }
+
+    property int taille: 4
+    property var tuiles: [0,2,4,8,0,16,0,128,256,0,1024,2048,2,0,8,0]
+    property var couleurs: ["#cbbeb1" ,	"#B339E8" ,	"#A0F773", 	"#F5ED71" ,	"#532DFE" ,	"#604276", 	"#82ACC8", 	"#5694E0", 	"#8E66BE", 	"#801BE1", 	"#941E79", 	"#5FBFC8"]
+
+    function log2(a){
+        return Math.max((Math.log(a)/Math.log(2)),0)
+    }
+
 
     Text {
         id: text1
@@ -17,7 +30,7 @@ Window {
         y: 39
         text: qsTr("2048")
         font.weight: Font.DemiBold
-        font.family: "Monospace"
+        font.family: "clear"
         verticalAlignment: Text.AlignTop
         topPadding: -2
         horizontalAlignment: Text.AlignHCenter
@@ -78,11 +91,17 @@ Window {
                 anchors.verticalCenter: parent.verticalCenter
                         model: taille*taille
                         delegate:  Rectangle {
-                            width: (tuile==index)? ((parent.width-taille*grid.spacing)/taille): 0
-                            height: (tuile==index)? ((parent.height-taille*grid.spacing)/taille): 0
-                            color: "#ffffff"
+                            width: ((parent.width-taille*grid.spacing)/taille)
+                            height: ((parent.height-taille*grid.spacing)/taille)
+                            color: couleurs[log2(tuiles[index])]
                             radius: 3
-
+                            Text{
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                anchors.verticalCenter: parent.verticalCenter
+                                text:tuiles[index]
+                                font.pixelSize:50
+                                opacity: (tuiles[index]!=0)
+                            }
                         }
                     }
         }
