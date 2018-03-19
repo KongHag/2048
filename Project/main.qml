@@ -48,8 +48,10 @@ Window {
             id: gridfond
             x: 10+grid.spacing/2
             y: 10+grid.spacing/2
-            width: 480
-            height: 480
+            anchors.bottomMargin: 150
+            anchors.topMargin: 150
+            anchors.rightMargin: 70
+            anchors.leftMargin: 70
             spacing: 10
             rows: taille
             columns: taille
@@ -61,8 +63,8 @@ Window {
                 anchors.verticalCenter: parent.verticalCenter
                         model: taille*taille
                         delegate: Rectangle {
-                            width: ((parent.width-taille*gridfond.spacing)/taille)
-                            height: ((parent.height-taille*gridfond.spacing)/taille)
+                            width: ((parent.parent.width-taille*gridfond.spacing)/taille-5)
+                            height: ((parent.parent.height-taille*gridfond.spacing)/taille-5)
                             color: "#cbbeb1"
                             radius: 3
 
@@ -86,8 +88,8 @@ Window {
                 anchors.verticalCenter: parent.verticalCenter
                         model: taille*taille
                         delegate:  Rectangle {
-                            width: ((parent.width-taille*grid.spacing)/taille)
-                            height: ((parent.height-taille*grid.spacing)/taille)
+                            width: ((parent.parent.width-taille*grid.spacing)/taille-5)
+                            height: ((parent.parent.height-taille*grid.spacing)/taille-5)
                             color: couleurs[log2(tuiles[index])]
                             radius: 3
                             Text{
@@ -96,7 +98,7 @@ Window {
                                 text:tuiles[index]
                                 font.weight: Font.Black
                                 font.pixelSize:42
-                                opacity: (tuiles[index]!=0)
+                                opacity: (tuiles[index]!==0)
                                 font.family: "Arial"
                             }
                         }
