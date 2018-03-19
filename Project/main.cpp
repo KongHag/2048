@@ -1,5 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include "plateau.h"
+#include "tuile.h"
 
 int main(int argc, char *argv[])
 {
@@ -25,6 +27,10 @@ int main(int argc, char *argv[])
             else
             QObject::disconnect(connection);
 }, Qt::QueuedConnection);
+    Plateau unPlateau;
+    unPlateau.initialiser();
+
+
 
     engine.load(mainQml);
 

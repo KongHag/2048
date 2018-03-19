@@ -2,12 +2,14 @@
 #define PLATEAU_H
 
 #include <QObject>
+#include <list>
+#include "tuile.h"
 
 class Plateau : public QObject
 {
     Q_OBJECT
 public:
-    explicit Plateau(QObject *parent = nullptr);
+    explicit Plateau(QObject *parent = nullptr, int n = 4);
 
     void gravite(QString direction);
     void fusion(QString direction);
@@ -18,17 +20,17 @@ public:
     void initialiser();
     void bouger(QString direction);
 
-    Q_PROPERTY(QString QML_2048 READ read2048 NOTIFY 2048modif);
+    Q_PROPERTY(QString QML_2048 READ read2048 NOTIFY jeu_modif);
     QString read2048();
 
 
 signals:
-    void 2048modif();
+    void jeu_modif();
 
 public slots:
 
 private :
-    list<Tuile> tuiles;
+    Tuile tuiles[];
     int taille;
 };
 

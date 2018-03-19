@@ -2,12 +2,13 @@
 #define TUILE_H
 
 #include <QObject>
+#include <list>
 
 class Tuile : public QObject
 {
     Q_OBJECT
 public:
-    explicit Tuile(QObject *parent = nullptr, int indice);
+    explicit Tuile(QObject *parent = nullptr, int indice = 0);
 
     void changer_valeur(int new_val);
 
@@ -18,7 +19,7 @@ public slots:
 
 private :
     int valeur;
-    list<int> coordonnees;
+    int coordonnees[2];
 
 };
 

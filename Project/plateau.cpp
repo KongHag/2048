@@ -1,33 +1,39 @@
 #include "plateau.h"
 #include "tuile.h"
 #include <stdlib.h>
+#include <list>
 
-Plateau::Plateau(QObject *parent) : QObject(parent)
+Plateau::Plateau(QObject *parent, int n) : QObject(parent)
 {
+    taille = n;
+    std::list<Tuile> tuiles;
+    for (int i=0; i<taille*taille;i++){
+        tuiles.push_back(Tuile(nullptr, i));
+    }
     initialiser();
 }
 
-Plateau::initialiser(){
+void Plateau::initialiser(){
     reset();
     spawn();
     spawn();
 }
 
-Plateau::bouger(QString direction) {
+void Plateau::bouger(QString direction) {
     gravite(direction);
     fusion(direction);
     gravite(direction);
 }
 
-Plateau::reset() {
-    for (i=0; i<taille*taille-1; i++){
+void Plateau::reset() {
+    for (int i=0; i<taille*taille; i++){
         tuiles[i].changer_valeur(0);
     }
 }
 
-Plateau::spawn() {
-    list<int> liste_cases_vides = [];
-    for (i=0; i<taille*taille-1; i++){
+void Plateau::spawn() {
+    int liste_cases_vides[];
+    for (int i=0; i<taille*taille; i++){
         if (tuiles[i].valeur == 0){
             liste_cases_vides.push_back(i);
         }
@@ -42,18 +48,18 @@ Plateau::spawn() {
     }
 }
 
-Plateau::perdu() {
+void Plateau::perdu() {
     initialiser();
 }
 
-Plateau::gagne() {
+void Plateau::gagne() {
     initialiser();
 }
 
-Plateau::gravite(QString direction){
+void Plateau::gravite(QString direction){
     switch (direction){
         case("Haut"):
-        for (i=taille-1; i<taille*taille-1; i++){
+        for (int i=taille-1; i<taille*taille; i++){
             int j = i;
             while(tuiles[j-taille]==0 && j>=0){
                 tuiles[j-taille].changer_valeur(tuiles[j].valeur);
@@ -64,7 +70,7 @@ Plateau::gravite(QString direction){
         break;
     case("Bas"):
         tuiles.reverse();
-        for (i=taille-1; i<taille*taille-1; i++){
+        for (int i=taille-1; i<taille*taille; i++){
             int j = i;
             while(tuiles[j-taille]==0 && j>=0){
                 tuiles[j-taille].changer_valeur(tuiles[j].valeur);
@@ -74,13 +80,33 @@ Plateau::gravite(QString direction){
         }
         tuiles.reverse();
     break;
-    case("Droite"):
-        break;
     case("Gauche"):
+        for (int i=0; i<taille*taille; i++){
+            int j = i;
+            int mult = j/4;
+            while(tuiles[j-1] == 0 && j/4 == mult){
+                tuiles[j-1].changer_valeur(tuiles[j].valeur);
+                tuiles[j].changer_valeur(0);
+                j=j-1;
+            }
+        }
+        break;
+    case("Droite"):
+        tuiles.reverse();
+        for (int i=0; i<taille*taille; i++){
+            int j = i;
+            int mult = j/4;
+            while(tuiles[j-1] == 0 && j/4 == mult){
+                tuiles[j-1].changer_valeur(tuiles[j].valeur);
+                tuiles[j].changer_valeur(0);
+                j=j-1;
+            }
+        }
+        tuiles.reverse();
         break;
     }
 }
 
-Plateau::fusion(QString direction) {
+void Plateau::fusion(QString direction) {
 
 }
