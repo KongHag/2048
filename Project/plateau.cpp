@@ -32,17 +32,17 @@ void Plateau::reset() {
 }
 
 void Plateau::spawn() {
-    int liste_cases_vides[];
+    QList<int> liste_cases_vides;
     for (int i=0; i<taille*taille; i++){
         if (tuiles[i].valeur == 0){
             liste_cases_vides.push_back(i);
         }
     }
-    if (liste_cases_vides.size==0) {
+    if (liste_cases_vides.size()==0) {
         perdu();
     }
     else {
-        int new_spawn = rand()%liste_cases_vides.size;
+        int new_spawn = rand()%liste_cases_vides.size();
         int new_value = (rand()%2+1)*2;
         tuiles[liste_cases_vides[new_spawn]].changer_valeur(new_value);
     }

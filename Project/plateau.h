@@ -30,7 +30,7 @@ signals:
 public slots:
 
 private :
-    Tuile tuiles[];
+    QList<Tuile> tuiles;
     int taille;
 };
 

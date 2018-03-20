@@ -44,6 +44,24 @@ Window {
         anchors.fill: parent
         radius:10
 
+        Keys.onPressed: {
+            switch(event.key){
+            case Qt.Key_Up:
+                Jeu.bouger("Haut")
+                break;
+            case Qt.Key_Down:
+                Jeu.bouger("Bas")
+                break;
+            case Qt.Key_Left:
+                Jeu.bouger("Gauche")
+                break;
+            case Qt.Key_Right:
+                Jeu.bouger("Droite")
+                break;
+
+            }
+
+        }
         Grid {
             id: gridfond
             x: 10+grid.spacing/2
