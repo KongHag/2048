@@ -6,9 +6,10 @@
 Plateau::Plateau(QObject *parent, int n) : QObject(parent)
 {
     taille = n;
-    std::list<Tuile> tuiles;
-    for (int i=0; i<taille*taille;i++){
-        tuiles.push_back(Tuile(nullptr, i));
+    QList<Tuile> tuiles;
+    for (int i=0;i<taille*taille;i++){
+        Tuile tuilevide;
+        tuiles.append(tuilevide);
     }
     initialiser();
 }
@@ -35,7 +36,7 @@ void Plateau::spawn() {
     QList<int> liste_cases_vides;
     for (int i=0; i<taille*taille; i++){
         if (tuiles[i].valeur == 0){
-            liste_cases_vides.push_back(i);
+            liste_cases_vides.append(i);
         }
     }
     if (liste_cases_vides.size()==0) {
@@ -57,55 +58,54 @@ void Plateau::gagne() {
 }
 
 void Plateau::gravite(QString direction){
-    switch (direction){
-        case("Haut"):
+    if (direction==1){
         for (int i=taille-1; i<taille*taille; i++){
             int j = i;
-            while(tuiles[j-taille]==0 && j>=0){
+            while(tuiles[j-taille].valeur==0 && j>=0){
                 tuiles[j-taille].changer_valeur(tuiles[j].valeur);
                 tuiles[j].changer_valeur(0);
                 j = j-taille;
             }
         }
-        break;
-    case("Bas"):
-        tuiles.reverse();
-        for (int i=taille-1; i<taille*taille; i++){
-            int j = i;
-            while(tuiles[j-taille]==0 && j>=0){
-                tuiles[j-taille].changer_valeur(tuiles[j].valeur);
-                tuiles[j].changer_valeur(0);
-                j = j-taille;
-            }
-        }
-        tuiles.reverse();
-    break;
-    case("Gauche"):
-        for (int i=0; i<taille*taille; i++){
-            int j = i;
-            int mult = j/4;
-            while(tuiles[j-1] == 0 && j/4 == mult){
-                tuiles[j-1].changer_valeur(tuiles[j].valeur);
-                tuiles[j].changer_valeur(0);
-                j=j-1;
-            }
-        }
-        break;
-    case("Droite"):
-        tuiles.reverse();
-        for (int i=0; i<taille*taille; i++){
-            int j = i;
-            int mult = j/4;
-            while(tuiles[j-1] == 0 && j/4 == mult){
-                tuiles[j-1].changer_valeur(tuiles[j].valeur);
-                tuiles[j].changer_valeur(0);
-                j=j-1;
-            }
-        }
-        tuiles.reverse();
-        break;
     }
+   else if (direction==2){
+        for(int k=0, s=tuiles.size(), max=(s/2); k<max; k++) tuiles.swap(k,s-(1+k));
+        for (int i=taille-1; i<taille*taille; i++){
+            int j = i;
+            while(tuiles[j-taille].valeur==0 && j>=0){
+                tuiles[j-taille].changer_valeur(tuiles[j].valeur);
+                tuiles[j].changer_valeur(0);
+                j = j-taille;
+            }
+        }
+        for(int k=0, s=tuiles.size(), max=(s/2); k<max; k++) tuiles.swap(k,s-(1+k));
 }
+    else if (direction==3){
+        for (int i=0; i<taille*taille; i++){
+            int j = i;
+            int mult = j/4;
+            while(tuiles[j-1].valeur == 0 && j/4 == mult){
+                tuiles[j-1].changer_valeur(tuiles[j].valeur);
+                tuiles[j].changer_valeur(0);
+                j=j-1;
+            }
+        }
+}
+    else if (direction==4){
+        for(int k=0, s=tuiles.size(), max=(s/2); k<max; k++) tuiles.swap(k,s-(1+k));
+        for (int i=0; i<taille*taille; i++){
+            int j = i;
+            int mult = j/4;
+            while(tuiles[j-1].valeur == 0 && j/4 == mult){
+                tuiles[j-1].changer_valeur(tuiles[j].valeur);
+                tuiles[j].changer_valeur(0);
+                j=j-1;
+            }
+        }
+        for(int k=0, s=tuiles.size(), max=(s/2); k<max; k++) tuiles.swap(k,s-(1+k));
+    }
+    }
+
 
 void Plateau::fusion(QString direction) {
 

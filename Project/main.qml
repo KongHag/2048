@@ -47,16 +47,16 @@ Window {
         Keys.onPressed: {
             switch(event.key){
             case Qt.Key_Up:
-                Jeu.bouger("Haut")
+                Jeu.bouger(1)
                 break;
             case Qt.Key_Down:
-                Jeu.bouger("Bas")
+                Jeu.bouger(2)
                 break;
             case Qt.Key_Left:
-                Jeu.bouger("Gauche")
+                Jeu.bouger(3)
                 break;
             case Qt.Key_Right:
-                Jeu.bouger("Droite")
+                Jeu.bouger(4)
                 break;
 
             }
